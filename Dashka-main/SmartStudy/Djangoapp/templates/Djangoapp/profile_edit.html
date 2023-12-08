@@ -1,0 +1,26 @@
+{% extends 'Djangoapp/layout.html' %}
+{% load static %}
+{% block title %}SmartStudy{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'Djangoapp/css/profile_edit.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="profile-edit-content">
+        <div class="empty"></div>
+        <div class="profile-edit-container">
+            <div class="profile-edit-title">
+                Редактирование профиля
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="profile-edit-form-content">
+                    {% for f in form %}
+                        <div class="profile-edit-input-block">
+                            <label for={{ f.id_for_label }}>{{ f.label }}</label>
+                            <input type="{{ f.field.widget.input_type }}" id={{ f.id_for_label }} name="{{ f.name }}"/>
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Сохранить"/>
+            </form>
+{% endblock %}
